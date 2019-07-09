@@ -8,11 +8,10 @@ const COPLANAR_FRONT = 4;
 const COPLANAR_BACK = 5;
 
 export const fromPolygons = (polygons) => {
-  const bsp = { back: null, front: null, same: [] };
+  const bsp = { plane: toPlane(polygons[0]), back: null, front: null, same: [] };
 
   let front = null;
   let back = null;
-  let plane = toPlane(polygons[0]);
 
   const emit = (polygon, kind) => {
     switch (kind) {
@@ -31,7 +30,7 @@ export const fromPolygons = (polygons) => {
   };
 
   for (const polygon of polygons) {
-    splitPolygon(plane, polygon, emit);
+    splitPolygon(bsp.plane, polygon, emit);
   }
 
   if (back !== null) {

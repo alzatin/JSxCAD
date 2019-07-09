@@ -1,4 +1,3 @@
-import { clipPolygons } from './clipPolygons';
 import { create } from './create';
 import { difference } from './difference';
 import { flip } from './flip';
@@ -8,7 +7,6 @@ import { toSolid } from './toSolid';
 import { union } from './union';
 
 export {
-  clipPolygons,
   create,
   difference,
   flip,

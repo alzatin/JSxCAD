@@ -62678,6 +62678,7 @@ return d[d.length-1];};return ", funcName].join("");
   };
 
   const toPlane = (polygon) => {
+    return fromPolygon(polygon);
     if (polygon.plane === undefined) {
       polygon.plane = fromPolygon(polygon);
     }
@@ -62706,14 +62707,6 @@ return d[d.length-1];};return ", funcName].join("");
   const transform$2 = (matrix, surface) => surface.map(polygon => transform$1(matrix, polygon));
 
   // import { isCoplanar } from '@jsxcad/math-poly3';
-
-  /**
-   * Transforms each polygon of the surface.
-   *
-   * @param {Polygons} original - the Polygons to transform.
-   * @param {Function} [transform=identity] - function used to transform the polygons.
-   * @returns {Polygons} a copy with transformed polygons.
-   */
 
   // (c) Copyright 2016, Sean Connelly (@voidqk), http://syntheti.cc
   // MIT License
@@ -67682,6 +67675,14 @@ return d[d.length-1];};return ", funcName].join("");
       }));
     return blessAsConvex(convex);
   };
+
+  /**
+   * Transforms each polygon of the surface.
+   *
+   * @param {Polygons} original - the Polygons to transform.
+   * @param {Function} [transform=identity] - function used to transform the polygons.
+   * @returns {Polygons} a copy with transformed polygons.
+   */
 
   const makeConvex$1 = (options = {}, surface) => {
     if (surface.length === 0) {

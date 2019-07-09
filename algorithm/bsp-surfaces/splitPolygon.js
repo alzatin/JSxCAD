@@ -33,6 +33,8 @@ const toType = (plane, point) => {
 
 const pointType = [];
 
+const seenLengths = new Set();
+
 export const splitPolygon = (plane, polygon, emit) => {
   const last = polygon.length - 1;
   pointType.length = 0;

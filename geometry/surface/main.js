@@ -2,6 +2,7 @@ import { canonicalize, rotateZ, scale, toPlane, transform, translate } from './o
 import { cut, cutSurface } from './cut';
 
 import { assertCoplanar } from './assertCoplanar';
+import { clean } from './clean';
 import { eachPoint } from './eachPoint';
 import { flip } from './flip';
 import { makeConvex } from './makeConvex';
@@ -10,10 +11,12 @@ import { measureArea } from './measureArea';
 import { measureBoundingBox } from './measureBoundingBox';
 import { measureBoundingSphere } from './measureBoundingSphere';
 import { toGeneric } from './toGeneric';
+import { union } from './union';
 
 export {
   assertCoplanar,
   canonicalize,
+  clean,
   cut,
   cutSurface,
   eachPoint,
@@ -24,6 +27,7 @@ export {
   measureBoundingBox,
   measureBoundingSphere,
   rotateZ,
+  union,
   toGeneric,
   toPlane,
   transform,

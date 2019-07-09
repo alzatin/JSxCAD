@@ -9,12 +9,13 @@ const COPLANAR_BACK = 5;
 // Remove from surfaces those parts that are inside the solid delineated by bsp.
 export const removeInteriorPolygons = (bsp, polygons, alsoRemoveCoplanarFront = false) => {
   if (bsp === null || bsp.same === null || polygons === null) {
-    return polygons;
+    throw Error('die');
   }
   if (polygons.length === 0) {
     return null;
   }
-  const plane = toPlane(bsp.same[0]);
+  const plane = bsp.plane;
+  if (plane === undefined) throw Error('die');
   let front = null;
   let back = null;
 

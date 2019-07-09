@@ -1,3 +1,5 @@
+import { clean } from '@jsxcad/geometry-surface';
+
 const deduplicate = (surface) => {
   // return surface;
   const unique = new Map();
@@ -11,7 +13,7 @@ export const toSolid = (bsp) => {
   const solid = [];
   const walk = (bsp) => {
     if (bsp.same !== null) {
-      solid.push(deduplicate(bsp.same));
+      solid.push(clean(deduplicate(bsp.same)));
     }
     if (bsp.back !== null) {
       walk(bsp.back);

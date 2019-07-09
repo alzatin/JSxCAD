@@ -6,6 +6,7 @@ export const removeExterior = (a, b, alsoRemoveCoplanarBack = false) => {
     return null;
   } else {
     const clipped = {
+      plane: a.plane,
       back: removeExterior(a.back, b, alsoRemoveCoplanarBack),
       front: removeExterior(a.front, b, alsoRemoveCoplanarBack),
       same: removeExteriorPolygons(b, a.same, alsoRemoveCoplanarBack)

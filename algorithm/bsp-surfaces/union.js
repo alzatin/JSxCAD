@@ -17,12 +17,8 @@ export const union = (...solids) => {
     } else {
       const a = fromSolid(aSolid);
       const b = fromSolid(bSolid);
-
-      // FIX: See if we can apply work stealing.
-
       const aOutsideB = removeInterior(a, b);
       const bOutsideA = removeInterior(b, a);
-
       solids.push([...toSolid(aOutsideB), ...toSolid(bOutsideA)]);
     }
   }
