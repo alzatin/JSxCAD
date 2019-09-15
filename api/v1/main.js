@@ -80,6 +80,7 @@ import { nocut } from './nocut';
 import { numbers } from './numbers';
 import { orient } from './orient';
 import { outline } from './outline';
+import { overcutCorners } from './overcutCorners';
 import { readDst } from './readDst';
 import { readFont } from './readFont';
 import { readJscad } from './readJscad';
@@ -140,6 +141,7 @@ const methods = [
   nocut,
   orient,
   outline,
+  overcutCorners,
   right,
   rotate,
   rotateX,

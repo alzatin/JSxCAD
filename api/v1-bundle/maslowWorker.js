@@ -25,17 +25,13 @@ const agent = async ({ ask, question }) => {
       case 'color':
         return api.Shape.fromGeometry(values[0]).color(values[1]).toDisjointGeometry();
       case 'getLayoutSvgs':
-        // Extract shapes
-        var items = api.Shape.fromGeometry(values[0]).toItems();
-
-        // Center each one and grab a .svg of it
+        var items = api.Shape.fromGeometry(values[0]).toItems(); // Extract shapes
         var svgArray = [];
         var item;
-        for (item in items) {
+        for (item in items) { // Center each one and grab a .svg of it
           const svgString = await toSvg({}, items[item].center().section().outline().toKeptGeometry());
           svgArray.push(svgString);
         }
-
         return svgArray;
       case 'difference':
         return api.difference(api.Shape.fromGeometry(values[0]), api.Shape.fromGeometry(values[1])).toDisjointGeometry();
@@ -48,6 +44,8 @@ const agent = async ({ ask, question }) => {
         return api.hull(...values).toDisjointGeometry();
       case 'intersection':
         return api.intersection(api.Shape.fromGeometry(values[0]), api.Shape.fromGeometry(values[1])).toDisjointGeometry();
+      case 'Overcut Inside Corners':
+        return api.Shape.fromGeometry(values[0]).overcutCorners();
       case 'rectangle':
         return api.Square(values[0], values[1]).toDisjointGeometry();
       case 'render':
