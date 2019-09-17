@@ -2,6 +2,7 @@ import { add, negate, scale, angle, dot, cross, subtract } from '@jsxcad/math-ve
 
 import { Circle } from './Circle';
 import { union } from './union';
+import { difference } from './difference';
 import { Shape } from './Shape';
 import { measureBoundingBox } from './measureBoundingBox';
 
@@ -42,7 +43,7 @@ export const overcutCorners = (shape) => {
       const crossProduct = cross(v1, v2)[3];
       const angleComputed = angle(v1, v2);
       console.log(crossProduct)
-      if(Math.abs(angleComputed - 1.570) < .01 && crossProduct[3] > 0){ //We have a sharp angle
+      if(Math.abs(angleComputed - 1.570) < .01){ //We have a sharp angle
         overcutPoints.push(points[i]);
       }
       i++;
@@ -54,7 +55,7 @@ export const overcutCorners = (shape) => {
     plane = union(plane, Circle(1).translate(point));
   })
   
-  return plane;
+  return difference(shape.center().section(), plane);
 };
 
 const method = function () { return overcutCorners(this); };
