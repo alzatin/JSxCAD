@@ -45,7 +45,7 @@ const agent = async ({ ask, question }) => {
       case 'intersection':
         return api.intersection(api.Shape.fromGeometry(values[0]), api.Shape.fromGeometry(values[1])).toDisjointGeometry();
       case 'Overcut Inside Corners':
-        return api.Shape.fromGeometry(values[0]).overcutCorners();
+        return api.Shape.fromGeometry(values[0]).overcutCorners().toDisjointGeometry();
       case 'rectangle':
         return api.Square(values[0], values[1]).toDisjointGeometry();
       case 'render':

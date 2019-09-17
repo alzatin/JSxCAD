@@ -1,5 +1,7 @@
-import { add, negate, scale } from '@jsxcad/math-vec3';
+import { add, negate, scale, angle, dot, cross, subtract } from '@jsxcad/math-vec3';
 
+import { Circle } from './Circle';
+import { union } from './union';
 import { Shape } from './Shape';
 import { measureBoundingBox } from './measureBoundingBox';
 
@@ -25,26 +27,34 @@ import { measureBoundingBox } from './measureBoundingBox';
  **/
 
 export const overcutCorners = (shape) => {
-  const points = shape.center().section().outline().geometry.paths[0]
-  var i = 1;
+  
   var overcutPoints = [];
-  while(i < points.length - 2){
-    console.log(points[i]);
-    const ax = points[i-1][0] - points[i][0]; //a · b = ax × bx + ay × by
-    const ay = points[i-1][1] - points[i][1];
-    const bx = points[i][0] - points[i+1][0];
-    const by = points[i][1] - points[i+1][1];
-    const dotProduct = ax*bx + ay*by;
-    if(dotProduct < .01){ //We have a sharp angle
-      overcutPoints.push(points[i]);
+  
+  shape.center().section().outline().geometry.paths.forEach(path => {
+    var points = path
+    points.push(path[0])
+    points.push(path[1])
+    var i = 1;
+    while(i < points.length - 2){
+      const v1 = subtract(points[i-1], points[i])
+      const v2 = subtract(points[i], points[i+1])
+      const dotProduct = dot(v1, v2);
+      const crossProduct = cross(v1, v2)[3];
+      const angleComputed = angle(v1, v2);
+      console.log(crossProduct)
+      if(Math.abs(angleComputed - 1.570) < .01 && crossProduct[3] > 0){ //We have a sharp angle
+        overcutPoints.push(points[i]);
+      }
+      i++;
     }
-    i++;
-  }
+  })
   
-  console.log("Overcut points: ");
-  console.log(overcutPoints);
+  var plane = Circle(.1);
+  overcutPoints.forEach(point => {
+    plane = union(plane, Circle(1).translate(point));
+  })
   
-  return shape;
+  return plane;
 };
 
 const method = function () { return overcutCorners(this); };
