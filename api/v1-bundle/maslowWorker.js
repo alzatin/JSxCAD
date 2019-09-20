@@ -26,7 +26,7 @@ const agent = async ({ ask, question }) => {
         return api.Shape.fromGeometry(values[0]).color(values[1]).toDisjointGeometry();
       case 'getLayoutSvgs':
         var items = api.Shape.fromGeometry(values[0]).toItems(); // Extract shapes
-        var svgArray = [];
+        var svgArray = []; // Center each one and grab a .svg of it
         var item;
         for (item in items) { // Center each one and grab a .svg of it
           const svgString = await toSvg({}, items[item].center().section().outline().toKeptGeometry());
